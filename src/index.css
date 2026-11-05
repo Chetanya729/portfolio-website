@@ -1,0 +1,94 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------
+   Design tokens
+   Warm ivory surfaces, charcoal ink, muted teal + terracotta accents.
+   The *-ink variants are darker shades used for text so accent-coloured
+   copy keeps WCAG AA contrast on the ivory background.
+---------------------------------------------------------------- */
+@theme {
+  --color-ivory: #faf9f6;
+  --color-cream: #f2efe8;
+  --color-sand: #ebe6dc;
+  --color-ink: #242424;
+  --color-ink-soft: #3a3a3a;
+  --color-muted: #646464;
+  --color-line: #e5e0d7;
+  --color-teal: #477d78;
+  --color-teal-ink: #36625e;
+  --color-teal-wash: #e3ecea;
+  --color-clay: #c47c61;
+  --color-clay-ink: #9c5638;
+  --color-clay-wash: #f6e7e0;
+
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shadow-soft: 0 1px 2px rgb(36 36 36 / 0.04), 0 8px 24px -12px rgb(36 36 36 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(36 36 36 / 0.04), 0 24px 48px -20px rgb(36 36 36 / 0.22);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 60s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes drift {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(4%, -6%, 0) scale(1.08); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-teal);
+    color: var(--color-ivory);
+  }
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Paper grain + faint grid used behind hero and contact */
+  .bg-dot-grid {
+    background-image: radial-gradient(rgb(36 36 36 / 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
